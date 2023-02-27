@@ -1,23 +1,47 @@
 import shipFactory from "../factories/shipFactory";
-describe("Testing that ship factory function works",() => {
-    it("ship takes an length parameter and the ship object has that length set", () =>{
-        let ship1 = shipFactory(3);
-        expect(ship1.length).toBe(3);
+describe("Ship Factory",() => {
+    describe("Properties", () =>{
+        const ship1 = shipFactory('cruiser');
+        test("id", () =>{
+            expect(ship1.id).toBe('cruiser');
+        });
+        test('length', () =>{
+            expect(ship1.length).toBe(3);
+        });
+        test('direction', ()=> {
+            expect(ship1.getDirection()).toBe('horizontal');
+        })
+        test('change direction', () =>{
+            ship1.changeDirection();
+            expect(ship1.getDirection()).toBe('vertical');
+        })
     })
 
-    it("ship Object has a hits function that adds number of hits", () =>{
-        let ship1 = shipFactory(3);
-        ship1.hit();
-        ship1.hit();
-        expect(ship1.numOfHits).toBe(2);
+    describe("Hit Function", () =>{
+        const ship1 = shipFactory('submarine');
+        test('no hits', () =>{
+            expect(ship1.getHits()).toEqual([null,null,null]);
+        })
+        test('one hit', () =>{
+            ship1.hit(1);
+            expect(ship1.getHits()).toEqual([null,'hit', null]);
+        })
     })
 
-    it("ship isSunk function works", ()=> {
-        let ship1 = shipFactory(3);
-        ship1.hit();
-        ship1.hit();
-        ship1.hit();
-        ship1.isSunk();
-        expect(ship1.sunk).toBe(true);
+    describe('isSunk Function', ()=>{
+        const ship1 = shipFactory('destroyer');
+        test('not sunk', () =>{
+            expect(ship1.isSunk()).toBe(false);
+        })
+        test('one hit but not sunk', () =>{
+            ship1.hit(0);
+            expect(ship1.isSunk()).toBe(false);
+        })
+        test('is sunk', () =>{
+            ship1.hit(1);
+            expect(ship1.isSunk()).toBe(true);
+        })
     })
+   
 })
+

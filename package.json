@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest gameBoard.test.js",
     "build": "webpack",
-    "watch": "jest --watch"
+    "watch": "jest gameBoard.test.js --watch"
   },
   "repository": {
     "type": "git",
