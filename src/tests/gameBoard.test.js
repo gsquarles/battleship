@@ -27,6 +27,7 @@ describe('GameBoard', ()=>{
         test("place ship at starter coord w/ index 0", () =>{
             const actual = board.getBoard()[3][2];
             expect(actual).toEqual({ship, index: 0})
+            //expect(actual).toEqual(null);
         })
         test("place ship at starter coord w/ index 1", () =>{
             const actual = board.getBoard()[3][3];

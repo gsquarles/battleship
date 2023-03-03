@@ -26,7 +26,7 @@ function player(type = 'human'){
         getFleet,
         attack,
         autoAttack,
-        resetFleet
+        resetFleet,
     }
 }
 export default player;

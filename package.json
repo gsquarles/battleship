@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest gameBoard.test.js",
     "build": "webpack",
-    "watch": "jest gameBoard.test.js --watch"
+    "watch": "jest player.test.js --watch"
   },
   "repository": {
     "type": "git",

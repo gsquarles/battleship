@@ -1,0 +1,89 @@
+body{
+    display: flex;
+}
+.p1-gameboard, .p2-gameboard {
+  width: 50%;
+  background-color: #ccc;
+}
+.p1-gameboard{
+  margin-right: 30px;
+}
+.p1-grid, .p2-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 50px); /* set the number of columns to fit the available space */
+    gap: 2px; /* set the gap between grid cells */
+    /*background-color: #ccc; /* set the background color */
+    padding: 10px; /* set the padding */
+  }
+  
+  .grid-cell {
+    background-color: #fff; /* set the cell background color */
+    border: 1px solid #333; /* set the cell border */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+  }
+
+  .p2-grid .grid-cell.carrier, .p2-grid .grid-cell.battleship,
+  .p2-grid .grid-cell.cruiser,.p2-grid .grid-cell.destroyer,
+  .p2-grid .grid-cell.submarine
+  {
+    background-color: #fff;
+  }
+
+  
+  .grid-cell.hit{
+    color: black;
+    font-size: 2em;
+  }
+  .grid-cell.miss{
+    font-size: 2em;
+    color: red;
+  }
+  .grid-cell.carrier {
+    background-color: blue;
+  }
+  .grid-cell.battleship {
+    background-color: yellow;
+  }
+  .grid-cell.cruiser {
+    background-color: green;
+  }
+  .grid-cell.submarine{
+    background-color: red;
+  }
+  .grid-cell.destroyer {
+    background-color: orange;
+  }
+  .infoContainer{
+    display: none;
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    background-color: blue;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .infoText{
+    font-size: 2em;
+  }
+  .playAgain{
+
+  }
+  .hide{
+    visibility: hidden;
+    opacity: 0;
+  }
+  .show{
+    visibility: visible;
+    opacity: 1;
+  }
+  .grid-disabled{
+
+  }
+  
