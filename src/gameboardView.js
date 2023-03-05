@@ -54,12 +54,18 @@ export function updateGrid(gameboard, playersGrid){
   }
 }
 export function renderWinner(winner){
-  elements.infoContainer.style.display = 'flex';
+  elements.infoContainer.classList.toggle('hide');
   elements.infoText.textContent = `${winner.toUpperCase()}`;
 }
+export function startGame(){
+  elements.placementContainer.classList.toggle('hide');
+  elements.p2Gameboard.classList.toggle('hide');
+}
 
-function clearGrid(grid) {
-  while (grid.firstChild) {
-    grid.removeChild(grid.firstChild);
-  }
+export function playNewGame(){
+  elements.infoContainer.classList.toggle('hide');
+  elements.p1Grid.textContent = '';
+  elements.p2Grid.textContent = '';
+  elements.p2Gameboard.classList.toggle('hide');
+  elements.placementContainer.classList.toggle('hide');
 }

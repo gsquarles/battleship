@@ -6,4 +6,6 @@ export const elements = {
     infoContainer: document.querySelector('.infoContainer'),
     infoText: document.querySelector('.infoText'),
     playAgainBtn: document.querySelector('.playAgain'),
+    autoPlaceBtn: document.querySelector('.autoPlaceBtn'),
+    placementContainer: document.querySelector('.placementContainer'),
 }

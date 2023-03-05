@@ -2,7 +2,7 @@ import gameBoard from "../factories/gameBoard";
 import shipFactory from "../factories/shipFactory";
 import player from "../factories/player";
 import { elements } from "../base";
-import { renderGrid, updateGrid, renderWinner } from "../gameboardView";
+import { renderGrid, updateGrid, renderWinner, playNewGame, startGame } from "../gameboardView";
 import { createFleet, SHIP_TYPES } from "../helper/helper";
 
 //Init
@@ -62,12 +62,15 @@ function game(){
 
     //Adding Event Listeners to grids for ctrlAttack
     function addGridEventListener(){
-        if(p2.getType === 'human'){
-            elements.p1Grid.addEventListener('click', ctrlAttack);
-            elements.p2Grid.addEventListener('click', ctrlAttack);
-        }else{
-            elements.p2Grid.addEventListener('click', ctrlAttack);
+        if(p1Board.areAllShipsArePlaced() === true){
+            if(p2.getType === 'human'){
+                elements.p1Grid.addEventListener('click', ctrlAttack);
+                elements.p2Grid.addEventListener('click', ctrlAttack);
+            }else{
+                elements.p2Grid.addEventListener('click', ctrlAttack);
+            }
         }
+       
     }
     function renderGrids(){
         renderGrid(p1Board, elements.p1Grid);
@@ -78,11 +81,34 @@ function game(){
         updateGrid(p2Board, elements.p2Grid);
     }
     function renderFleets(){
-        const fleet1 = createFleet(SHIP_TYPES);
         const fleet2 = createFleet(SHIP_TYPES);
-        p1Board.autoPlaceFleet(fleet1);
         p2Board.autoPlaceFleet(fleet2);
     }
+
+    function autoPlacePlayerShips(){
+        elements.p1Grid.textContent = '';
+        const fleet1 = createFleet(SHIP_TYPES);
+        p1Board.autoPlaceFleet(fleet1);
+        renderGrid(p1Board, elements.p1Grid);
+        addGridEventListener();
+        startGame();
+    }
+    function autoPlacePlayerShipsEventListener(){
+        elements.autoPlaceBtn.addEventListener('click', autoPlacePlayerShips);
+    }
+
+    function playAgain(){
+        playNewGame();
+        resetGame();
+        renderFleets();
+        renderGrids();  
+    }
+
+    function addPlayAgainEvent(){
+        elements.playAgainBtn.addEventListener('click', playAgain);
+    }
+
+
 
 
 
@@ -90,7 +116,10 @@ function game(){
         ctrlAttack,
         renderGrids,
         renderFleets,
-        addGridEventListener
+        addGridEventListener,
+        addPlayAgainEvent,
+        resetGame, 
+        autoPlacePlayerShipsEventListener,
     }
 
 }

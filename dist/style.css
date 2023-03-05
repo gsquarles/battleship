@@ -1,40 +1,106 @@
 body{
-    display: flex;
+  margin: 0;
+  background-color: #0b043c;
 }
-.p1-gameboard, .p2-gameboard {
-  width: 50%;
-  background-color: #ccc;
+header{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.headerInfo{
+  font-size: 3rem;
+  color: red;
+}
+
+main{
+  display: flex;
+  justify-content: center;
 }
 .p1-gameboard{
-  margin-right: 30px;
+  width: 40%;
+  padding: 20px;
 }
+.p2-gameboard {
+  width: 40%;
+  padding: 20px;
+
+}
+
+.fleetIndicator{
+  color: white;
+  font-size: 2rem;
+  margin-left: 10px;
+}
+.placementContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  background-color: orange;
+  padding-top: 30px;
+  position: relative;
+  right: 100px;
+}
+.placeFleetInfo{
+  color: white;
+  font-size: 2rem;
+  grid-row: 1;
+}
+.autoPlaceBtn{
+  color: white;
+  font-size: 1.25rem;
+  margin-top: 10px;
+  border-style: solid;
+  border-width: 5px;
+  padding: 10px;
+  border-image: linear-gradient(to right, #ffe600, red) 1;
+  cursor: pointer;
+}
+
 .p1-grid, .p2-grid {
     display: grid;
-    grid-template-columns: repeat(10, 50px); /* set the number of columns to fit the available space */
-    gap: 2px; /* set the gap between grid cells */
-    /*background-color: #ccc; /* set the background color */
-    padding: 10px; /* set the padding */
+    grid-template-columns: repeat(10, 45px);
+    padding: 10px;
   }
   
   .grid-cell {
-    background-color: #fff; /* set the cell background color */
-    border: 1px solid #333; /* set the cell border */
+    background-color: transparent; 
+    border: 1px solid #333; 
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
+    cursor: pointer;
+  }
+  .grid-cell:hover{
+    background-color: rgb(5, 113, 113);
+  }
+  .grid-cell[data-y = '0']{
+    border-top: 1px solid white;
+  }
+  .grid-cell[data-y = '9']{
+    border-bottom: 1px solid white;
+  }
+  .grid-cell[data-x = '0']{
+    border-left: 1px solid white;
+  }
+  .grid-cell[data-x = '9']{
+    border-right: 1px solid white;
   }
 
   .p2-grid .grid-cell.carrier, .p2-grid .grid-cell.battleship,
   .p2-grid .grid-cell.cruiser,.p2-grid .grid-cell.destroyer,
   .p2-grid .grid-cell.submarine
   {
-    background-color: #fff;
+    background-color: #0b043c;
   }
 
   
   .grid-cell.hit{
-    color: black;
+    color: rgb(159, 156, 156);
     font-size: 2em;
   }
   .grid-cell.miss{
@@ -57,11 +123,11 @@ body{
     background-color: orange;
   }
   .infoContainer{
-    display: none;
+    display: flex;
     position: absolute;
     width: 300px;
     height: 200px;
-    background-color: blue;
+    background-color: #190888;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -71,19 +137,25 @@ body{
   }
   .infoText{
     font-size: 2em;
+    color: white;
+    margin-bottom: 10px;
   }
   .playAgain{
-
+    background-color: transparent;
+    border-width: 3px;
+    border-image: linear-gradient(to right, #ffe600, red) 1;
+    padding: 5px;
+    color: white;
   }
+ 
   .hide{
-    visibility: hidden;
-    opacity: 0;
+    display: none;
   }
-  .show{
-    visibility: visible;
-    opacity: 1;
+  .showFlex{
+    display: flex;
   }
-  .grid-disabled{
+  .showBlock{
+    display: block;
+  }
 
-  }
   

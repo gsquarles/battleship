@@ -9,17 +9,31 @@
     <title>Battleships</title>
 </head>
 <body>
-    <div class="p1-gameboard">
-        <div class="p1-grid"></div>
-    </div>
-    <div class="p2-gameboard">
-        <div class="p2-grid"></div>
-    </div>
-    <div class="infoContainer">
-        <div class="infoText">
-    
+    <header>
+        <div class="headerInfo">
+            BattleShip
         </div>
-        <button type="button" class="playAgain">Play Again?</button>
-    </div>
+    </header>
+    <main>
+        <div class="p1-gameboard">
+            <span class="fleetIndicator">My Fleet</span>
+            <div class="p1-grid"></div>
+        </div>
+        <div class="placementContainer">
+            <span class="placeFleetInfo">Place Fleet</span>
+            <div class="autoPlaceBtn">Auto-Place</div>
+            <div class="fleetContainer"></div>
+        </div>
+        <div class="p2-gameboard hide">
+            <span class="fleetIndicator">Enemy Fleet</span>
+            <div class="p2-grid"></div>
+        </div>
+        <div class="infoContainer hide">
+            <div class="infoText">
+
+            </div>
+            <button type="button" class="playAgain">Play Again?</button>
+        </div>
+    </main>
 </body>
 </html>
