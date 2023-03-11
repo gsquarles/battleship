@@ -12,5 +12,7 @@ game1.renderFleets();
 game1.renderGrids();
 game1.autoPlacePlayerShipsEventListener();
 game1.addPlayAgainEvent();
+game1.renderPlayerGrid();
+
 
 

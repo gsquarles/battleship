@@ -4,6 +4,32 @@ export function renderGrid(gameboard, playersGrid) {
   const board = gameboard.getBoard();
   const length = board.length;
 
+
+  for (let i = 0; i < length; i++) {
+    for (let j = 0; j < length; j++) {
+      let status = board[i][j];
+      if (status === null) {
+        status = 'blank';
+      } else if (status.ship) {
+        status = status.ship.id;
+      }
+      
+      const cell = document.createElement('div');
+      cell.classList.add('grid-cell', `cell-${i}-${j}`, status);
+      cell.dataset.y = i;
+      cell.dataset.x = j;
+      
+      playersGrid.appendChild(cell);
+    }
+  }
+}
+
+export function renderPlayer1Grid(gameboard, playersGrid) {
+  const board = gameboard.getBoard();
+  const length = board.length;
+
+  playersGrid.innerHTML = '';
+
   for (let i = 0; i < length; i++) {
     for (let j = 0; j < length; j++) {
       let status = board[i][j];
@@ -45,7 +71,7 @@ export function updateGrid(gameboard, playersGrid){
         }
       }else if(board[i][j] === 'miss'){
         const cell = playersGrid.querySelector(`[data-y = "${i}"][data-x = "${j}"]`);
-        cell.innerText = 'm';
+        cell.innerText = '\u2022';
         cell.classList.add('miss');
         cell.classList.remove('blank');
         

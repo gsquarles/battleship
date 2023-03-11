@@ -2,7 +2,7 @@ import gameBoard from "../factories/gameBoard";
 import shipFactory from "../factories/shipFactory";
 import player from "../factories/player";
 import { elements } from "../base";
-import { renderGrid, updateGrid, renderWinner, playNewGame, startGame } from "../gameboardView";
+import { renderGrid, updateGrid, renderWinner, playNewGame, startGame, renderPlayer1Grid } from "../gameboardView";
 import { createFleet, SHIP_TYPES } from "../helper/helper";
 
 //Init
@@ -21,6 +21,8 @@ function game(){
         p2.resetFleet();
         p1Board.reset();
         p2Board.reset();
+        currentShipIndex = 0;
+        elements.fleetContainer.innerHTML = "Place Carrier";
     };
 
     //ctrlAttack function for eventListeners
@@ -70,25 +72,73 @@ function game(){
                 elements.p2Grid.addEventListener('click', ctrlAttack);
             }
         }
-       
     }
+
+    let currentShipIndex = 0;
+    let currentShipDirection = 'horizontal';
+
+
+    function placeCurrentShip(y,x){
+        const currentShipType = SHIP_TYPES[currentShipIndex];
+        const currentShip = shipFactory(currentShipType);
+        
+        const isValidPlacement = p1Board.placeShip(currentShip, y, x, currentShipDirection);
+        if (isValidPlacement){
+            renderPlayer1Grid(p1Board, elements.p1Grid);
+            //move on to next ship
+            currentShipIndex++;
+
+            if(currentShipIndex < SHIP_TYPES.length){
+                console.log(`Placed ${currentShipType}, now placing ${SHIP_TYPES[currentShipIndex]}`);
+                elements.fleetContainer.innerHTML = `Placed ${currentShipType}, now placing ${SHIP_TYPES[currentShipIndex]}`;
+                
+            } else{
+                console.log('All Ships Are Placed');
+                console.log(p1Board.getBoard());
+                addGridEventListener();
+                startGame();
+            }
+        } else {
+            console.log('Invalid Placement, please try again');
+        }
+    }
+
+    
     function renderGrids(){
         renderGrid(p1Board, elements.p1Grid);
         renderGrid(p2Board, elements.p2Grid);
+    }
+    function renderPlayerGrid(){
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r') {
+              currentShipDirection = currentShipDirection === 'horizontal' ? 'vertical' : 'horizontal';
+              //console.log('Direction Changed');
+              //console.log(currentShipDirection);
+            }
+          });
+        
+        elements.p1Grid.addEventListener('click', (e) =>{
+            const targetCell = e.target;
+            const y = parseInt(targetCell.dataset.y);
+            const x = parseInt(targetCell.dataset.x);
+            placeCurrentShip(y,x);
+        })
     }
     function updateGrids(){
         updateGrid(p1Board, elements.p1Grid);
         updateGrid(p2Board, elements.p2Grid);
     }
+    function updateP1Grid(){
+        updateGrid(p1Board, elements.p1Grid);
+    }
     function renderFleets(){
-        const fleet2 = createFleet(SHIP_TYPES);
-        p2Board.autoPlaceFleet(fleet2);
+        p2Board.autoPlaceFleet(p2.getFleet());
     }
 
     function autoPlacePlayerShips(){
         elements.p1Grid.textContent = '';
-        const fleet1 = createFleet(SHIP_TYPES);
-        p1Board.autoPlaceFleet(fleet1);
+        p1Board.autoPlaceFleet(p1.getFleet());
+        console.log(p1.getFleet());
         renderGrid(p1Board, elements.p1Grid);
         addGridEventListener();
         startGame();
@@ -101,13 +151,13 @@ function game(){
         playNewGame();
         resetGame();
         renderFleets();
-        renderGrids();  
+        renderGrids();
+        
     }
 
     function addPlayAgainEvent(){
         elements.playAgainBtn.addEventListener('click', playAgain);
     }
-
 
 
 
@@ -120,6 +170,10 @@ function game(){
         addPlayAgainEvent,
         resetGame, 
         autoPlacePlayerShipsEventListener,
+        placeCurrentShip,
+        updateP1Grid,
+        renderPlayerGrid
+        
     }
 
 }

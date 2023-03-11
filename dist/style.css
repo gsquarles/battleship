@@ -39,7 +39,6 @@ main{
   flex-direction: column;
   align-items: center;
   width: 30%;
-  background-color: orange;
   padding-top: 30px;
   position: relative;
   right: 100px;
@@ -48,6 +47,19 @@ main{
   color: white;
   font-size: 2rem;
   grid-row: 1;
+}
+.fleetContainer{
+  width: 300px;
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+  border: 5px solid gray;
+  padding: 10px;
+  font-weight: bold;
+}
+.directions{
+  color: white;
+  margin-bottom: 40px;
 }
 .autoPlaceBtn{
   color: white;
@@ -75,9 +87,7 @@ main{
     height: 50px;
     cursor: pointer;
   }
-  .grid-cell:hover{
-    background-color: rgb(5, 113, 113);
-  }
+
   .grid-cell[data-y = '0']{
     border-top: 1px solid white;
   }

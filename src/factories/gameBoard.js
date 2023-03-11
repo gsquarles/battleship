@@ -13,16 +13,13 @@ function gameBoard(){
         }
     }
 
-    function adjustCoords(y0, x0, i, direction){
-        //Default is horizontal
-        let x = x0 +i;
-        let y = y0;
-        if(direction === 'vertical'){
-            x = x0;
-            y = y0 + i;
+    function adjustCoords(y0, x0, i, direction) {
+        if (direction === 'horizontal') {
+          return [y0, x0 + i];
+        } else {
+          return [y0 + i, x0];
         }
-        return [y,x];
-    }
+      }
 
     function checkValid(length, direction, y0, x0){
         let cells = [];
@@ -36,8 +33,8 @@ function gameBoard(){
         }
         return cells.every((cell) => cell === null);
     }
-    function placeShip(ship, y0, x0){
-        const direction = ship.getDirection();
+    function placeShip(ship, y0, x0, direction){
+        //const direction = ship.getDirection();
         //Check if valid spot
         const valid = checkValid(ship.length, direction, y0, x0);
         if(valid){
@@ -56,8 +53,9 @@ function gameBoard(){
     function autoPlace(ship){
         const [y, x] = randCoords();
         const randomNum = Math.floor(Math.random() * 10) + 1;
+        const direction = ship.getDirection();
         if(randomNum > 5) ship.changeDirection();
-        const placed = placeShip(ship, y, x);
+        const placed = placeShip(ship, y, x, direction);
         if(!placed) autoPlace(ship);
     }
     function autoPlaceFleet(fleet){
