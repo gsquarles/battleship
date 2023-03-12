@@ -157,6 +157,9 @@ main{
     padding: 5px;
     color: white;
   }
+  .ship-preview {
+    background-color: #8880ba;
+  }
  
   .hide{
     display: none;

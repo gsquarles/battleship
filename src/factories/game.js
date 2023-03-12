@@ -3,7 +3,7 @@ import shipFactory from "../factories/shipFactory";
 import player from "../factories/player";
 import { elements } from "../base";
 import { renderGrid, updateGrid, renderWinner, playNewGame, startGame, renderPlayer1Grid } from "../gameboardView";
-import { createFleet, SHIP_TYPES } from "../helper/helper";
+import { createFleet, SHIP_TYPES, SHIP_LENGTH } from "../helper/helper";
 
 //Init
 function game(){
@@ -108,14 +108,63 @@ function game(){
         renderGrid(p1Board, elements.p1Grid);
         renderGrid(p2Board, elements.p2Grid);
     }
+    
+      
+      // event listener for mouseout
+      function handleCellMouseOut(e) {
+        // remove class from all preview cells
+        const previewCells = document.querySelectorAll('.ship-preview');
+        for (const cell of previewCells) {
+          cell.classList.remove('ship-preview');
+        }
+      }
+      function getShipDirection() {
+        return currentShipDirection === 'horizontal' ? 'vertical' : 'horizontal';
+      }
+      
     function renderPlayerGrid(){
         document.addEventListener('keydown', (e) => {
             if (e.key === 'r') {
               currentShipDirection = currentShipDirection === 'horizontal' ? 'vertical' : 'horizontal';
-              //console.log('Direction Changed');
-              //console.log(currentShipDirection);
+              console.log('direction changed');
             }
           });
+        elements.p1Grid.addEventListener('mouseover', (e)=>{
+            const targetCell  = e.target;
+            const y = parseInt(targetCell.dataset.y);
+            const x = parseInt(targetCell.dataset.x);
+      
+            // get ship length and direction
+            const currentShipType = SHIP_TYPES[currentShipIndex];
+            const currentShipLength = SHIP_LENGTH[currentShipType];
+            const currentShipDirection = getShipDirection();
+      
+            // calculate cells that ship will occupy
+            const occupiedCells = [];
+            for (let i = 0; i < currentShipLength; i++) {
+            if (currentShipDirection === 'vertical') {
+                occupiedCells.push({y, x: x + i});
+            } else {
+                occupiedCells.push({y: y + i, x});
+            }
+            }
+      
+            // add class to preview cells
+            for (const cell of occupiedCells) {
+            const previewCell = document.querySelector(`.cell-${cell.y}-${cell.x}`);
+            if (previewCell) {
+                previewCell.classList.add('ship-preview');
+            }
+            }  
+          })
+          elements.p1Grid.addEventListener('mouseout', ()=>{
+            // remove class from all preview cells
+            const previewCells = document.querySelectorAll('.ship-preview');
+            for (const cell of previewCells) {
+            cell.classList.remove('ship-preview');
+            }
+            
+          })
         
         elements.p1Grid.addEventListener('click', (e) =>{
             const targetCell = e.target;
